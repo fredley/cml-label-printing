@@ -185,8 +185,6 @@ const render_preview = () => {
           field.width ? "width:" + field.width + "mm": ""
         }; ${
           field.font_family ? "font-family:" + field.font_family: ""
-        }; ${
-          field.multiline ? "white-space: initial" : ""
         };"
 >
   ${field.transform ? TRANSFORMS[field.transform](fields[field.name]) : fields[field.name]}
