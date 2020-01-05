@@ -597,17 +597,19 @@ const labels = {
   circular: {
     name: "Circular",
     circular: true,
-    width: 40,
-    height: 40,
-    origin_x: 6,
-    origin_y: 15,
+    width: 35,
+    height: 35,
+    origin_x: 11,
+    origin_y: 11,
+    margin_x: 3.5,
+    margin_y: 5.5,
     columns: 5,
     rows: 7,
     logo: {
-      x: 5.5,
+      x: 4,
       y: 9,
-      width: 28,
-      height: 11,
+      width: 25,
+      height: 9,
       fixed: true
     },
     fields: [
@@ -632,7 +634,7 @@ const labels = {
         multiline: true,
         font_size: 10,
         multiline: true,
-        y: 22
+        y: 19
       },
       {
         name: "price",
@@ -642,7 +644,7 @@ const labels = {
         font_size: 11,
         font_color: "red",
         font_weight: "bold",
-        y: 32,
+        y: 28,
       }
     ]
   }
