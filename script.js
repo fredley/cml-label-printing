@@ -9,6 +9,7 @@ let logo_uri = ""
 let change_timer = 0
 let advanced_controls = false
 let current_label = null
+const b64 = `Q01MbGFiZWxzMjAyMCM=`
 
 const get_saved_labels = () => {
   let saved = [];
@@ -185,8 +186,6 @@ const render_preview = () => {
           field.width ? "width:" + field.width + "mm": ""
         }; ${
           field.font_family ? "font-family:" + field.font_family: ""
-        }; ${
-          field.multiline ? "white-space: initial" : ""
         };"
 >
   ${field.transform ? TRANSFORMS[field.transform](fields[field.name]) : fields[field.name]}
@@ -195,12 +194,12 @@ const render_preview = () => {
     );
   if (logo_uri) {
     $("#preview").append(`
-<div class="logo" style="top:${label.logo.y}mm; left:${label.logo.x}mm;">
+<div class="logo" style="top:${label.logo.y}mm; left:${(label.width - label.logo.width) / 2}mm;">
 <img 
   id="logo" 
   src="${logo_uri}" 
   alt="logo" 
-  style="width:${label.logo.width}mm; height:${label.logo.height}mm"
+  style="width:${label.logo.width}mm; height:${label.logo.width * LOGO_RATIO}mm"
 >
 </div>`);
   }
@@ -301,13 +300,19 @@ const print = () => {
     });
     if (logo_uri) {
       const file_type = logo_uri.split(";")[0].split("/")[1];
+      console.log(
+        origin.x + (label.width - label.logo.width) / 2,
+        origin.y + label.logo.y,
+        label.logo.width,
+        LOGO_RATIO,
+        label.logo.width * LOGO_RATIO)
       doc.addImage(
         logo_uri,
         file_type,
-        origin.x + label.logo.x,
+        origin.x + (label.width - label.logo.width) / 2,
         origin.y + label.logo.y,
         label.logo.width,
-        label.logo.height
+        label.logo.width * LOGO_RATIO
       )
     }
   })
@@ -371,8 +376,16 @@ const check_total_counts = () => {
   }
 }
 
-$(document).ready(() => {
+const authenticate = () => {
+  if (btoa(localStorage["password"] || "") === b64) {
+    $("#cover").hide();
+  } else {
+    $("#cover > div").show();
+  }
+}
 
+$(document).ready(() => {
+  authenticate()
   $("#back").on("click", () => {
     render_options()
   })
@@ -416,5 +429,15 @@ $(document).ready(() => {
       load_label(label)
     }
     fr.readAsText(file)
+  })
+  $("#enter-password").on("click", () => {
+    const password = $("#password").val().trim() || "";
+    if (btoa(password) === b64) {
+      localStorage["password"] = password
+      authenticate()
+    } else {
+      $("#password").val("")
+      $("#password-error").text("That password was incorrect")
+    }
   })
 })
