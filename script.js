@@ -280,7 +280,8 @@ const print = () => {
       doc.setFontStyle(field.font_weight || "normal")
       doc.setTextColor(COLOURS[field.font_color] || "#000000")
       if(field.font_family) {
-        doc.setFont(field.font_family)
+        doc.setFont(field.font_family.replace(" ", "-"))
+        doc.setFontType('normal')
       } else {
         doc.setFont("helvetica")
       }
