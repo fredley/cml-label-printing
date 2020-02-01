@@ -32,10 +32,11 @@ const labels = {
         name: "title",
         label: "Title",
         type: "input",
-        placeholder: "Three Fruit Marmalade",
+        placeholder: "Marmalade",
         font_size: 10,
+        font_weight: "bold",
         multiline: true,
-        y: 9
+        y: 10
       },
       {
         name: "address",
@@ -84,7 +85,8 @@ const labels = {
         type: "input",
         placeholder: "Apricot Teabread",
         multiline: true,
-        font_size: 12,
+        font_size: 11,
+        font_family: "Arial Black",
         y: 10
       },
       {
@@ -113,6 +115,7 @@ const labels = {
         placeholder: "£3.50",
         font_size: 12,
         font_color: "red",
+        font_weight: "bold",
         y: 19,
         x: 2,
         align: "right"
@@ -150,8 +153,9 @@ const labels = {
         type: "input",
         placeholder: "Apricot Teabread",
         multiline: true,
-        font_size: 14,
-        y: 14
+        font_size: 13,
+        font_family: "Arial Black",
+        y: 13
       },
       {
         name: "description",
@@ -211,6 +215,7 @@ const labels = {
         placeholder: "£3.50",
         font_size: 12,
         font_color: "red",
+        font_weight: "bold",
         y: 28,
         x: 2,
         align: "right"
@@ -247,7 +252,8 @@ const labels = {
         placeholder: "Victoria Sandwich",
         multiline: true,
         font_size: 14,
-        y: 15
+        font_family: "Arial Black",
+        y: 14
       },
       {
         name: "description",
@@ -306,6 +312,7 @@ const labels = {
         type: "input",
         placeholder: "£3.50",
         font_size: 12,
+        font_weight: "bold",
         font_color: "red",
         y: 32,
         x: 2,
@@ -343,6 +350,7 @@ const labels = {
         placeholder: "Victoria Sandwich",
         multiline: true,
         font_size: 14,
+        font_family: "Arial Black",
         y: 16
       },
       {
