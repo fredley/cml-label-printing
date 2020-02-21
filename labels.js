@@ -66,9 +66,9 @@ const labels = {
   l_28: {
     name: "28s",
     width: 51,
-    height: 28,
-    origin_x: 15.5,
-    origin_y: 28.5,
+    height: 38,
+    origin_x: 3,
+    origin_y: 15.5,
     margin_x: 0,
     margin_y: 2,
     columns: 4,
@@ -91,11 +91,21 @@ const labels = {
       },
       {
         name: "description",
-        label: "Description - allergens must be IN CAPS",
+        label: "Description",
         type: "input",
         placeholder: "No added fat",
         font_size: 8,
-        y: 15
+        y: 16
+      },
+      {
+        name: "allergens",
+        label: "Contains (allergens)",
+        type: "input",
+        placeholder: "WHEAT, EGGS",
+        multiline: true,
+        font_size: 8,
+        y: 20,
+        transform: "ALLERGY"
       },
       {
         name: "address",
@@ -106,7 +116,7 @@ const labels = {
         font_size: 8,
         x: 2,
         align: "left",
-        y: 19
+        y: 28
       },
       {
         name: "price",
@@ -116,7 +126,7 @@ const labels = {
         font_size: 12,
         font_color: "red",
         font_weight: "bold",
-        y: 19,
+        y: 28,
         x: 2,
         align: "right"
       },
@@ -126,7 +136,7 @@ const labels = {
         value: "www.country-markets.co.uk",
         font_size: 6,
         font_color: "green",
-        y: 25
+        y: 34
       }
     ]
   },
@@ -232,10 +242,10 @@ const labels = {
   },
   l_21: {
     name: "21s",
-    width: 63.6,
+    width: 63.5,
     height: 38.1,
-    origin_x: 7,
-    origin_y: 14.5,
+    origin_x: 7.75,
+    origin_y: 15.15,
     margin_x: 2,
     columns: 3,
     rows: 7,
