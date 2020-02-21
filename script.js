@@ -51,6 +51,14 @@ const delete_label = (id) => {
   render_saved()
 }
 
+const show_download_popup = (label) => {
+  $("#shade").show()
+  $("#label-content").val(JSON.stringify(label))
+  $("#download-done").on("click", () => {$("#shade").hide()})
+  $("#label-content").select()
+  $("#label-content").on("click", () => $("#label-content").select())
+}
+
 const render_label_for_saved = (label) => {
   const li = $('<li class="saved-label">')
   li.text(label.values.title)
@@ -59,10 +67,21 @@ const render_label_for_saved = (label) => {
   show_btn.html(`<i class="far fa-eye"></i>`)
   show_btn.on("click", ev => load_label(label))
   left_group.append(show_btn)
-  const download_btn = $(`<a class="btn btn-sm btn-outline-primary">`)
+  const ua = window.navigator.userAgent
+  const isIE = /*@cc_on!@*/false || !!document.documentMode
+  const download_btn = $(`<a class="btn btn-sm btn-outline-primary" target="_blank">`)
   download_btn.html(`<i class="fas fa-download"></i>`)
-  download_btn.attr("href", "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(label)))
-  download_btn.attr("download", label.values.title + ".cml")
+  if (ua.indexOf("Edge") > -1 || isIE) {
+    // Download button won't work
+    download_btn.on("click", (e) => {
+      e.preventDefault()
+      download_btn.attr("href", "#")
+      show_download_popup(label)
+    })
+  } else {
+    download_btn.attr("href", "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(label)))
+    download_btn.attr("download", label.values.title + ".cml")
+  }
   left_group.append(download_btn)
   li.append(left_group)
   const delete_btn = $(`<button class="btn btn-sm btn-outline-danger">`)
