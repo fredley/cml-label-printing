@@ -147,13 +147,22 @@ body {
   border-radius: 1mm;
 }
 
+.label .divider {
+  background: #296033;
+  position: absolute;
+  top: 10%;
+  height: 80%;
+  width: 0.5mm;
+  left: 50%;
+}
+
 .label.circular{
   border-radius: 20mm;
 }
 
 .label>div{
   position: absolute;
-  white-space:nowrap;
+/*   white-space:nowrap; */
   line-height:100%;
 }
 .centered{
