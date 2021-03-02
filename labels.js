@@ -9,6 +9,7 @@ const TRANSFORMS = {
   MIN_WT: t => {return t ? `Min Wt.<br>${t}` : t},
   HOMEMADE_BY: t => {return t ? "Homemade by: " + t : ''},
   INGREDIENTS_UPPERS_BOLD: t => {return t ? "<b>Ingredients:</b><br><br>" + TRANSFORMS.UPPERS_BOLD(t) : t},
+  INGREDIENTS_UPPERS_BOLD_INLINE: t => {return t ? "<b>Ingredients:</b> " + TRANSFORMS.UPPERS_BOLD(t) : t},
   UPPERS_BOLD: t => {
     const splits = t.split(" ")
     let words = []
@@ -43,6 +44,137 @@ const LOGO_DIMENSIONS = {
 const LOGO_RATIO = LOGO_DIMENSIONS.height / LOGO_DIMENSIONS.width
 
 const labels = {
+  l_14: {
+    name: "14s",
+    width: 99,
+    height: 38.1,
+    origin_x: 5,
+    origin_y: 15,
+    margin_x: 2,
+    columns: 2,
+    rows: 7,
+    logo: {
+      y: 1,
+      width: 28,
+      fixed: false
+    },
+    fields: [
+      {
+        name: "title",
+        label: "Title",
+        type: "input",
+        multiline: true,
+        placeholder: "THREE FRUIT\nMARMALADE",
+        font_size: 12,
+        font_family: "Arial Black",
+        y: 13
+      },
+      // {
+      //   name: "description",
+      //   label: "Contents - must include allergens in ALL CAPS.",
+      //   type: "input",
+      //   multiline: true,
+      //   placeholder: "Contains: Sugar, Oranges (17%),\nGrapefruit (13%), Lemons (12%)",
+      // },
+      {
+        name: "ingredients",
+        label: "Ingredients - must include allergens in ALL CAPS.",
+        type: "input",
+        multiline: true,
+        dropdown: true,
+        placeholder: "",
+        font_size: 6,
+        align: "center",
+        font_size: 10,
+        y: 22,
+        x: 25,
+        width: 48,
+        is_html: true,
+        transform: "UPPERS_BOLD"
+      },
+      {
+        name: "best_before",
+        label: "Best Before / Use By",
+        type: "input",
+        placeholder: "Best Before:\n24 Mar 2020",
+        multiline: true,
+        font_size: 8,
+        align: "left",
+        x: 2,
+        y: 8,
+      },
+      {
+        name: "market_name",
+        label: "Market name",
+        type: "input",
+        placeholder: "Kingsbury\nAB1 2CD",
+        multiline: true,
+        font_size: 8,
+        align: "left",
+        x: 2,
+        y: 30,
+        width: 25,
+      },
+      {
+        name: "address",
+        label: "Homemade by:",
+        type: "input",
+        placeholder: "A.N. Other",
+        font_style: "italic",
+        font_weight: "bold",
+        multiline: true,
+        font_size: 8,
+        x: 2,
+        align: "left",
+        y: 22,
+        width: 25,
+        transform: "HOMEMADE_BY"
+      },
+      {
+        name: "drained_weight",
+        label: "Drained Weight",
+        type: "input",
+        placeholder: "",
+        font_size: 12,
+        y: 2,
+        x: 2,
+        align: "right",
+        transform: "MIN_DRAINED",
+      },
+      {
+        name: "weight",
+        label: "Weight",
+        type: "input",
+        placeholder: "340g",
+        font_size: 12,
+        y: 13,
+        x: 2,
+        align: "right",
+        transform: "MIN_WT",
+      },
+      // {
+      //   name: "price",
+      //   label: "Price",
+      //   type: "input",
+      //   placeholder: "£3.50",
+      //   font_size: 12,
+      //   font_color: "red",
+      //   font_weight: "bold",
+      //   y: 32,
+      //   x: 2,
+      //   align: "right"
+      // },
+      {
+        name: "url",
+        type: "fixed",
+        value: "www.country-markets.co.uk",
+        font_size: 8,
+        font_color: "green",
+        font_weight: "bold",
+        y: 33.5
+      }
+    ]
+  },
   l_10: {
     name: "10s (Landscape)",
     width: 99.1,
@@ -168,6 +300,56 @@ const labels = {
         x: 51,
         width: 48,
         y: 52
+      },
+    ]
+  },
+  l_10_onecol: {
+    name: "10s (Landscape - one column)",
+    width: 99.1,
+    height: 57.3,
+    origin_x: 4.9,
+    origin_y: 5.25,
+    margin_x: 2,
+    columns: 2,
+    rows: 5,
+    logo: {
+      y: 1,
+      width: 24,
+      fixed: false
+    },
+    fields: [
+      {
+        name: "title",
+        label: "Title",
+        type: "input",
+        multiline: true,
+        placeholder: "FRUIT LOAF",
+        font_size: 12,
+        font_family: "Arial Black",
+        colourable: true,
+        y: 12,
+      },
+      {
+        name: "url",
+        type: "fixed",
+        value: "www.country-markets.co.uk",
+        font_size: 8,
+        font_color: "green",
+        font_weight: "bold",
+        y: 52,
+      },
+      {
+        name: "ingredients",
+        label: "Ingredients - must include allergens in ALL CAPS.",
+        type: "input",
+        multiline: true,
+        dropdown: true,
+        placeholder: "",
+        font_size: 9,
+        align: "center",
+        y: 18,
+        is_html: true,
+        transform: "INGREDIENTS_UPPERS_BOLD_INLINE"
       },
     ]
   },
