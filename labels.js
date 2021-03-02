@@ -773,8 +773,9 @@ const labels = {
     columns: 5,
     rows: 13,
     logo: {
-      y: -1000,
-      width: 0,
+      y: 1,
+      width: 10,
+      x_offset: -25,
       fixed: true
     },
     fields: [
@@ -785,6 +786,7 @@ const labels = {
         placeholder: "HEAT UNTIL\nPIPING HOT",
         font_size: 10,
         multiline: true,
+        colourable: true,
         y: 7
       }
     ]
