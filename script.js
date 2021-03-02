@@ -122,8 +122,8 @@ const render_form = () => {
 <div class="form-group" id="fg_${f.name}">
   <label for="${f.name}">${f.label}</label>
   ${f.dropdown? '<select class="form-control dropdown" data-name="' + f.name + '" id="select_"' + f.name + '"></select>' : ''}
-  <${f.multiline? 'textarea' : 'input type="text" value="' + f.placeholder + '"'} 
-    id="${f.name}" 
+  <${f.multiline? 'textarea' : 'input type="text" value="' + f.placeholder + '"'}
+    id="${f.name}"
     class="form-control"
   >${f.multiline? f.placeholder + '</textarea>' : ''}
 </div>`
@@ -133,7 +133,7 @@ const render_form = () => {
     const dropdown = $(this)
     const input = $(this).attr("data-name")
     const db = DATABASE[input]
-    const dropdown_html = Object.keys(db).map(k => 
+    const dropdown_html = Object.keys(db).map(k =>
       `<optgroup label="${k}">${Object.keys(db[k]).map(name => `<option value="${k}|${name}">${name}</option>`).reduce((a,b) => a + b, '')}</optgroup>`
     ).reduce((a,b) => a + b, '')
     $(this).html(dropdown_html).on('change', function () {
@@ -173,10 +173,10 @@ const render_advanced_controls = () => {
     </button>
     <button class="btn btn-sm btn-colour btn-outline-success" data-colour="green">
       <i class="fas fa-circle"></i>
-    </button> 
+    </button>
     <button class="btn btn-sm btn-colour btn-outline-primary" data-colour="blue">
       <i class="fas fa-circle"></i>
-    </button> 
+    </button>
   </div>`
     }
     $("#fg_" + f.name).append(`
@@ -187,7 +187,7 @@ Nudge: <div class="btn-group">
     </button>
     <button class="btn btn-sm btn-nudge btn-outline-dark" data-dir="up">
       <i class="fas fa-arrow-up"></i>
-    </button> 
+    </button>
   </div>
 Text Size: <div class="btn-group">
     <button class="btn btn-sm btn-size btn-outline-dark">
@@ -195,7 +195,7 @@ Text Size: <div class="btn-group">
     </button>
     <button class="btn btn-sm btn-size btn-outline-dark" data-dir="up">
       <i class="fas fa-plus"></i>
-    </button> 
+    </button>
   </div>
 ${colourable}
 </div>
@@ -237,10 +237,10 @@ const render_preview = () => {
     .html(
       label.fields.map(
         field => `
-<div 
-  id="preview_${field.name}" 
-  class="field ${field.x ? "" : "centered"}" 
-  style="top:${field.y}mm; font-size:${field.font_size}pt; 
+<div
+  id="preview_${field.name}"
+  class="field ${field.x ? "" : "centered"}"
+  style="top:${field.y}mm; font-size:${field.font_size}pt;
         ${
           field.x ? (field.align === "right" ? "right:" : "left:") + field.x + "mm" : ""
         }; ${
@@ -262,10 +262,10 @@ const render_preview = () => {
   if (logo_uri) {
     $("#preview").append(`
 <div class="logo" style="top:${label.logo.y}mm; left:${(label.width - label.logo.width - (label.logo.x_offset || 0)) / 2}mm;">
-<img 
-  id="logo" 
-  src="${logo_uri}" 
-  alt="logo" 
+<img
+  id="logo"
+  src="${logo_uri}"
+  alt="logo"
   style="width:${label.logo.width}mm; height:${label.logo.width * LOGO_RATIO}mm"
 >
 </div>`);
@@ -277,8 +277,8 @@ const render_preview = () => {
     .filter(f => f.type == "input")
     .forEach(field => {
       if (
-        Math.round($("#preview_" + field.name)[0].scrollWidth) >
-        Math.round($("#preview_" + field.name).innerWidth())
+        Math.floor($("#preview_" + field.name)[0].scrollWidth) >
+        Math.ceil($("#preview_" + field.name).innerWidth())
       ) {
         $("#" + field.name).addClass("is-invalid");
         $("#preview_" + field.name).addClass("text-danger");
@@ -366,15 +366,15 @@ const print = () => {
       const x = (field.align === "right") ? label.width - field.x : (field.align === "left" ? field.x : field.x + field.width / 2)
       const value = fields[field.name].replace(/<br>/g, "\n")
       const text = field.transform ? TRANSFORMS[field.transform](value).replace("<br>", "\n") : value
-      
+
       if (field.is_html) {
         const lines = doc.splitTextToSize(stripHTML(text.replace("\n", " ")), field.width || label.width)
-        const line_height = field.font_size * 0.26458333333719  // pixels to mm  
+        const line_height = field.font_size * 0.26458333333719  // pixels to mm
         const html_chunks = text.replace(/\n/g, " ").split(" ").filter(c => c)
         let chunk_pointer = 0
         let line_no = 0
         let is_bold = false
-        
+
         lines.forEach(line => {
           let text_width = 0;
           // calculate chunks
@@ -388,7 +388,7 @@ const print = () => {
             const ret = {
               text: chunk_text,
               is_bold: is_bold,
-              width: doc.getTextWidth(chunk_text),  // pixels to mm  
+              width: doc.getTextWidth(chunk_text),  // pixels to mm
             }
             text_width += ret.width
             if (html_chunk.endsWith('</b>')){
@@ -445,12 +445,12 @@ const print = () => {
         label.logo.width * LOGO_RATIO
       )
     }
-    
+
     if(label.divider) {
       doc.setFillColor(41, 96, 51);
       // x, y, width, height
-      doc.rect(origin.x + label.width / 2 - 0.25, 
-               origin.y + label.height * 0.1, 
+      doc.rect(origin.x + label.width / 2 - 0.25,
+               origin.y + label.height * 0.1,
                0.5, label.height* 0.8, 'F');
     }
   })
