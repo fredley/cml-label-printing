@@ -1,8 +1,37 @@
+const isUpperCase = (str) => {
+  return str !== "\n" && str === str.toUpperCase() && !/\d|&/.test(str) && /[a-zA-Z]/.test(str)
+}
+
 const TRANSFORMS = {
   UPPER: t => t.toUpperCase(),
   ALLERGY: t => {return t ? `Contains: ${t.toUpperCase()}` : t},
+  ALLERGY_UPPERS_BOLD: t => {return t ? `Contains: ${TRANSFORMS.UPPERS_BOLD(t)}` : t},
   MIN_DRAINED: t => {return t ? `Min Drained<br>Wt. ${t}` : t},
   MIN_WT: t => {return t ? `Min Wt.<br>${t}` : t},
+  UPPERS_BOLD: t => {
+    const splits = t.split(" ")
+    let words = []
+    splits.forEach(w => {
+      if (w.indexOf('<br>') >= 0) {
+        w.split('<br>').forEach((w2, i) => {
+          if (i !== 0) {
+            words.push('<br>')
+          }
+          words.push(w2)
+        })
+      } else if (w.indexOf('\n') >= 0) {
+        w.split('\n').forEach((w2, i) => {
+          if (i !== 0) {
+            words.push('\n')
+          }
+          words.push(w2)
+        })
+      } else {
+        words.push(w)
+      }
+    })
+    return words.filter(w => w).map(w => isUpperCase(w) ? `<b>${w}</b>` : w).join(" ")
+  }
 }
 
 const LOGO_DIMENSIONS = {
@@ -105,7 +134,7 @@ const labels = {
         multiline: true,
         font_size: 8,
         y: 20,
-        transform: "ALLERGY"
+        transform: "ALLERGY_UPPERS_BOLD"
       },
       {
         name: "address",
@@ -191,10 +220,10 @@ const labels = {
         name: "allergens",
         label: "Contains (allergens):",
         type: "input",
-        placeholder: "wheat, eggs, sulphites",
+        placeholder: "WHEAT, EGGS, SULPHITES",
         font_size: 8,
         y: 23,
-        transform: "ALLERGY"
+        transform: "ALLERGY_UPPERS_BOLD"
       },
       {
         name: "market_name",
@@ -280,7 +309,7 @@ const labels = {
         placeholder: "",
         font_size: 8,
         y: 24,
-        transform: "ALLERGY"
+        transform: "ALLERGY_UPPERS_BOLD"
       },
       {
         name: "lot",
@@ -379,7 +408,7 @@ const labels = {
         multiline: true,
         font_size: 8,
         y: 27,
-        transform: "ALLERGY"
+        transform: "ALLERGY_UPPERS_BOLD"
       },
       {
         name: "lot",
@@ -468,7 +497,8 @@ const labels = {
         multiline: true,
         placeholder: "Contains: Sugar, Oranges (17%),\nGrapefruit (13%), Lemons (12%)",
         font_size: 10,
-        y: 22
+        y: 22,
+        transform: "UPPERS_BOLD",
       },
       {
         name: "lot",
@@ -775,7 +805,6 @@ const labels = {
     logo: {
       y: 1,
       width: 10,
-      x_offset: -25,
       fixed: true
     },
     fields: [
