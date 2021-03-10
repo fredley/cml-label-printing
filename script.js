@@ -138,7 +138,6 @@ const render_form = () => {
     ).reduce((a,b) => a + b, '')
     $(this).html(dropdown_html).on('change', function () {
       const split = dropdown.val().split("|")
-      console.log(split)
       const ingredients = db[split[0]][split[1]]
       $('#' + input).val(ingredients)
       render_preview()
@@ -366,7 +365,6 @@ const print = () => {
       const x = (field.align === "right") ? label.width - field.x : (field.align === "left" ? field.x : field.x + field.width / 2)
       const value = fields[field.name].replace(/<br>/g, "\n")
       const text = field.transform ? TRANSFORMS[field.transform](value).replace("<br>", "\n") : value
-
       if (field.is_html) {
         const lines = doc.splitTextToSize(stripHTML(text.replace("\n", " ")), field.width || label.width)
         const line_height = field.font_size * 0.26458333333719  // pixels to mm
@@ -421,17 +419,19 @@ const print = () => {
           line_no += 1
         })
       } else {
-        doc.text(
-          text,
-          field.x ? origin.x + x : origin.x + label.width / 2,
-          origin.y + field.y,
-          {
-            baseline: "top",
-            align: field.align ? field.align : "center",
-            lineHeightFactor: 1,
-            maxWidth: field.width || label.width || 0
-          }
-        )
+        text.split("\n").forEach((line, idx) => {
+          doc.text(
+            line,
+            field.x ? origin.x + x : origin.x + label.width / 2,
+            origin.y + field.y + idx * doc.getFontSize() * doc.getLineHeightFactor() / 2.83465, // points per mm
+            {
+              baseline: "top",
+              align: field.align ? field.align : "center",
+              lineHeightFactor: 1,
+              maxWidth: field.width || label.width || 0
+            }
+          )
+        })
       }
     });
     if (logo_uri) {

@@ -134,6 +134,7 @@ const labels = {
         multiline: true,
         font_size: 8,
         y: 20,
+        is_html: true,
         transform: "ALLERGY_UPPERS_BOLD"
       },
       {
@@ -223,6 +224,7 @@ const labels = {
         placeholder: "WHEAT, EGGS, SULPHITES",
         font_size: 8,
         y: 23,
+        is_html: true,
         transform: "ALLERGY_UPPERS_BOLD"
       },
       {
@@ -309,6 +311,7 @@ const labels = {
         placeholder: "",
         font_size: 8,
         y: 24,
+        is_html: true,
         transform: "ALLERGY_UPPERS_BOLD"
       },
       {
@@ -408,6 +411,7 @@ const labels = {
         multiline: true,
         font_size: 8,
         y: 27,
+        is_html: true,
         transform: "ALLERGY_UPPERS_BOLD"
       },
       {
@@ -498,6 +502,7 @@ const labels = {
         placeholder: "Contains: Sugar, Oranges (17%),\nGrapefruit (13%), Lemons (12%)",
         font_size: 10,
         y: 22,
+        is_html: true,
         transform: "UPPERS_BOLD",
       },
       {
