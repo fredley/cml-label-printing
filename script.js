@@ -366,7 +366,12 @@ const print = () => {
       const value = fields[field.name].replace(/<br>/g, "\n")
       const text = field.transform ? TRANSFORMS[field.transform](value).replace("<br>", "\n") : value
       if (field.is_html) {
-        const lines = doc.splitTextToSize(stripHTML(text.replace("\n", " ")), field.width || label.width)
+        let lines
+        if (text.indexOf("\n" >= 0)) {
+          lines = stripHTML(text).split("\n")
+        } else{
+          lines = doc.splitTextToSize(stripHTML(text.replace("\n", " ")), field.width || label.width)
+        }
         const line_height = field.font_size * 0.26458333333719  // pixels to mm
         const html_chunks = text.replace(/\n/g, " ").split(" ").filter(c => c)
         let chunk_pointer = 0
