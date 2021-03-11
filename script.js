@@ -368,7 +368,13 @@ const print = () => {
       const text = field.transform ? TRANSFORMS[field.transform](value).replace("<br>", "\n") : value
 
       if (field.is_html) {
-        const lines = doc.splitTextToSize(stripHTML(text.replace("\n", " ")), field.width || label.width)
+
+        let lines
+        if (text.indexOf("\n" >= 0)) {
+          lines = stripHTML(text).split("\n")
+        } else{
+          lines = doc.splitTextToSize(stripHTML(text.replace("\n", " ")), field.width || label.width)
+        }
         const line_height = field.font_size * 0.26458333333719  // pixels to mm
         const html_chunks = text.replace(/\n/g, " ").split(" ").filter(c => c)
         let chunk_pointer = 0
@@ -421,17 +427,19 @@ const print = () => {
           line_no += 1
         })
       } else {
-        doc.text(
-          text,
-          field.x ? origin.x + x : origin.x + label.width / 2,
-          origin.y + field.y,
-          {
-            baseline: "top",
-            align: field.align ? field.align : "center",
-            lineHeightFactor: 1,
-            maxWidth: field.width || label.width || 0
-          }
-        )
+        text.split("\n").forEach((line, idx) => {
+          doc.text(
+            line,
+            field.x ? origin.x + x : origin.x + label.width / 2,
+            origin.y + field.y + idx * doc.getFontSize() * doc.getLineHeightFactor() / 2.83465, // points per mm
+            {
+              baseline: "top",
+              align: field.align ? field.align : "center",
+              lineHeightFactor: 1,
+              maxWidth: field.width || label.width || 0
+            }
+          )
+        })
       }
     });
     if (logo_uri) {
