@@ -8,7 +8,7 @@ const TRANSFORMS = {
   MIN_DRAINED: t => {return t ? `Min Drained<br>Wt. ${t}` : t},
   MIN_WT: t => {return t ? `Min Wt.<br>${t}` : t},
   HOMEMADE_BY: t => {return t ? "Homemade by: " + t : ''},
-  INGREDIENTS_UPPERS_BOLD: t => {return t ? "<b>Ingredients:</b><br><br>" + TRANSFORMS.UPPERS_BOLD(t) : t},
+  INGREDIENTS_UPPERS_BOLD: t => {return t ? "<b>Ingredients:</b><br>" + TRANSFORMS.UPPERS_BOLD(t) : t},
   INGREDIENTS_UPPERS_BOLD_INLINE: t => {return t ? "<b>Ingredients:</b> " + TRANSFORMS.UPPERS_BOLD(t) : t},
   UPPERS_BOLD: t => {
     const splits = t.split(" ")
@@ -276,6 +276,7 @@ const labels = {
         x: 51,
         width: 48,
         is_html: true,
+        force_html: true,
         transform: "INGREDIENTS_UPPERS_BOLD"
       },
       {
@@ -563,6 +564,7 @@ const labels = {
         x: 51,
         width: 47,
         is_html: true,
+        force_html: true,
         transform: "INGREDIENTS_UPPERS_BOLD"
       },
       {

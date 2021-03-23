@@ -370,10 +370,10 @@ const print = () => {
       if (field.is_html) {
 
         let lines
-        if (text.indexOf("\n") >= 0) {
+        if (text.indexOf("\n") >= 0 && !field.force_html) {
           lines = stripHTML(text).split("\n")
         } else{
-          lines = doc.splitTextToSize(stripHTML(text.replace("\n", " ")), field.width || label.width)
+          lines = doc.splitTextToSize(stripHTML(text), field.width || label.width)
         }
         const line_height = field.font_size * 0.26458333333719  // pixels to mm
         const html_chunks = text.replace(/\n/g, " ").split(" ").filter(c => c)
