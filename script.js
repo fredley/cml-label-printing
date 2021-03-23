@@ -367,7 +367,7 @@ const print = () => {
       const text = field.transform ? TRANSFORMS[field.transform](value).replace("<br>", "\n") : value
       if (field.is_html) {
         let lines
-        if (text.indexOf("\n" >= 0)) {
+        if (text.indexOf("\n") >= 0) {
           lines = stripHTML(text).split("\n")
         } else{
           lines = doc.splitTextToSize(stripHTML(text.replace("\n", " ")), field.width || label.width)
